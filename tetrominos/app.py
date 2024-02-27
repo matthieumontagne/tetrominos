@@ -4,13 +4,9 @@ The approach was heavily inspired by this tutorial:
 http://pygametutorials.wikidot.com/tutorials-basic
 """
 
-import sys
-
 import pygame
 
 from matrix import Matrix
-
-print(sys.path)
 
 
 class App:
