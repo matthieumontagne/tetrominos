@@ -6,7 +6,7 @@ http://pygametutorials.wikidot.com/tutorials-basic
 
 import pygame
 
-from matrix import Matrix
+from tetrominos.matrix import Matrix
 
 
 class App:
