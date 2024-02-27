@@ -4,7 +4,13 @@ The approach was heavily inspired by this tutorial:
 http://pygametutorials.wikidot.com/tutorials-basic
 """
 
+import sys
+
 import pygame
+
+from matrix import Matrix
+
+print(sys.path)
 
 
 class App:
@@ -18,12 +24,24 @@ class App:
             window_width: the width of the app window, in pixels
             window_height: the height of the app window, in pixels
         """
+        # pygame init
         pygame.init()
+        self.clock = pygame.time.Clock()
+        self.running: bool = True
+
+        # window init
         self.window_width: int = window_width
         self.window_height: int = window_height
         self.window = pygame.display.set_mode((self.window_width, self.window_height))
-        self.clock = pygame.time.Clock()
-        self.running: bool = True
+
+        # matrix init
+        self.matrix = Matrix(
+            window_width_in_pixels=window_width,
+            window_height_in_pixels=window_height,
+            width_in_blocks=10,
+            height_in_blocks=22,
+            block_size_in_pixels=30,
+        )
 
     def run(self) -> None:
         """Run the Pygame game loop until it is interrupted"""
@@ -45,10 +63,13 @@ class App:
 
     def process_game_logic(self):
         """Computes the changes in the game world"""
-        self.window.fill("black")
 
     def render(self, frame_per_second_limit: int):
         """Print out graphics"""
+        self.window.fill("grey")
+        pygame.draw.rect(
+            surface=self.window, color="white", rect=self.matrix.matrix_rect
+        )
         pygame.display.flip()
         self.clock.tick(frame_per_second_limit)
 
