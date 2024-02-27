@@ -10,7 +10,7 @@ from tetrominos.matrix import Matrix
 
 
 class App:
-    """A class reprensenting the game engine"""
+    """A class reprensenting the app"""
 
     def __init__(self, window_width: int, window_height: int):
         """Initialize a running Pygame instance with a window of a
@@ -40,7 +40,7 @@ class App:
         )
 
     def run(self) -> None:
-        """Run the Pygame game loop until it is interrupted"""
+        """Run the Pygame game loop (event -> logic -> rendering) until game is interrupted"""
         while self.running:
             for event in pygame.event.get():
                 self.handle_event(event)
@@ -49,7 +49,7 @@ class App:
         pygame.quit()
 
     def handle_event(self, event: pygame.event.Event) -> None:
-        """Proceeds events (like pressed keys, mouse motion, exit)
+        """Handle events like pressed keys, mouse motion or exit
 
         Args:
             event: a Pygame Event object
@@ -58,7 +58,7 @@ class App:
             self.running = False
 
     def process_game_logic(self):
-        """Computes the changes in the game world"""
+        """Computes changes happening to the game world"""
 
     def render(self, frame_per_second_limit: int):
         """Print out graphics"""
