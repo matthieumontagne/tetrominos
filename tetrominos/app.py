@@ -9,6 +9,7 @@ import pygame
 from tetrominos.map import Map
 from tetrominos.matrix import Matrix
 from tetrominos.window import Window
+from tetrominos.block import Block
 
 
 class App:
@@ -27,10 +28,7 @@ class App:
         self.window = Window(width_in_pixels=1280, height_in_pixels=720).surface
 
         # map init
-        self.map = Map(
-            height_in_blocks=2,  #! for dev
-            width_in_blocks=2,  #! for dev
-        )
+        self.map = Map()
 
         # matrix init
         self.matrix = Matrix(surface=self.window, block_size_in_pixels=30, map=self.map)
@@ -55,6 +53,7 @@ class App:
 
     def process_game_logic(self):
         """Computes changes happening to the game world"""
+        self.map.alter_block(coordinate=(5, 1), new_block=Block(color=(0, 0, 0)))
 
     def render(self, frame_per_second_limit: int):
         """Print out graphics"""

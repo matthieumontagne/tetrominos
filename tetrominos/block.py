@@ -3,8 +3,6 @@
 
 from dataclasses import dataclass
 
-import pygame
-
 __all__ = ["Block"]
 
 
@@ -12,4 +10,4 @@ __all__ = ["Block"]
 class Block:
     """This class represents a block. The block is the smallest subdivision of the game matrix"""
 
-    color: pygame.Color
+    color: tuple[int]
