@@ -16,9 +16,9 @@ class Matrix:
     """
 
     surface: pygame.Surface
-    width_in_blocks: int
-    height_in_blocks: int
     block_size_in_pixels: int
+    width_in_blocks: int = 10
+    height_in_blocks: int = 20
 
     @property
     def width_in_pixels(self) -> int:

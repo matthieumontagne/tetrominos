@@ -28,8 +28,6 @@ class App:
         # matrix init
         self.matrix = Matrix(
             surface=self.window,
-            width_in_blocks=10,
-            height_in_blocks=22,
             block_size_in_pixels=30,
         )
 
