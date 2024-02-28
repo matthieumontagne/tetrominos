@@ -7,18 +7,15 @@ http://pygametutorials.wikidot.com/tutorials-basic
 import pygame
 
 from tetrominos.matrix import Matrix
+from tetrominos.window import Window
 
 
 class App:
     """A class reprensenting the app"""
 
-    def __init__(self, window_width: int, window_height: int):
+    def __init__(self):
         """Initialize a running Pygame instance with a window of a
         certain size and a clock
-
-        Args:
-            window_width: the width of the app window, in pixels
-            window_height: the height of the app window, in pixels
         """
         # pygame init
         pygame.init()
@@ -26,14 +23,11 @@ class App:
         self.running: bool = True
 
         # window init
-        self.window_width: int = window_width
-        self.window_height: int = window_height
-        self.window = pygame.display.set_mode((self.window_width, self.window_height))
+        self.window = Window(width_in_pixels=1280, height_in_pixels=720).surface
 
         # matrix init
         self.matrix = Matrix(
-            window_width_in_pixels=window_width,
-            window_height_in_pixels=window_height,
+            surface=self.window,
             width_in_blocks=10,
             height_in_blocks=22,
             block_size_in_pixels=30,
@@ -71,5 +65,5 @@ class App:
 
 
 if __name__ == "__main__":
-    app = App(window_width=1280, window_height=720)
+    app = App()
     app.run()

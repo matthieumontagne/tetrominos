@@ -15,8 +15,7 @@ class Matrix:
     and move
     """
 
-    window_width_in_pixels: int
-    window_height_in_pixels: int
+    surface: pygame.Surface
     width_in_blocks: int
     height_in_blocks: int
     block_size_in_pixels: int
@@ -44,8 +43,8 @@ class Matrix:
         """Matrix frame
 
         Returns:
-            Rerurn the matrix frame as a Pygame Rect Object
+            Return the matrix frame as a Pygame Rect Object
         """
-        left = (self.window_width_in_pixels - self.width_in_pixels) / 2
-        top = (self.window_height_in_pixels - self.height_in_pixels) / 2
+        left = (self.surface.get_width() - self.width_in_pixels) / 2
+        top = (self.surface.get_height() - self.height_in_pixels) / 2
         return pygame.Rect(left, top, self.width_in_pixels, self.height_in_pixels)
