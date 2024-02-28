@@ -55,9 +55,7 @@ class App:
     def render(self, frame_per_second_limit: int):
         """Print out graphics"""
         self.window.fill("grey")
-        pygame.draw.rect(
-            surface=self.window, color="white", rect=self.matrix.matrix_rect
-        )
+        self.matrix.render_matrix()
         pygame.display.flip()
         self.clock.tick(frame_per_second_limit)
 

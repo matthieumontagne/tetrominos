@@ -5,14 +5,16 @@ from dataclasses import dataclass
 
 import pygame
 
+
 __all__ = ["Matrix"]
 
 
 @dataclass
 class Matrix:
     """The Matrix class represent the game "matrix".
-    The game matrix is the grid where tetrominos exist
-    and move
+    The game matrix is the graphical representation of
+    the grid where tetrominos exist, move and interact.
+    Each subdivision of the matrix is called a "block".
     """
 
     surface: pygame.Surface
@@ -48,3 +50,7 @@ class Matrix:
         left = (self.surface.get_width() - self.width_in_pixels) / 2
         top = (self.surface.get_height() - self.height_in_pixels) / 2
         return pygame.Rect(left, top, self.width_in_pixels, self.height_in_pixels)
+
+    def render_matrix(self):
+        """This method renders the game matrix"""
+        pygame.draw.rect(surface=self.surface, color="white", rect=self.matrix_rect)
