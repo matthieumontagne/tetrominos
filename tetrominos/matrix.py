@@ -5,6 +5,8 @@ from dataclasses import dataclass
 
 import pygame
 
+from tetrominos.map import Map
+
 
 __all__ = ["Matrix"]
 
@@ -19,8 +21,7 @@ class Matrix:
 
     surface: pygame.Surface
     block_size_in_pixels: int
-    width_in_blocks: int = 10
-    height_in_blocks: int = 20
+    map: Map
 
     @property
     def width_in_pixels(self) -> int:
@@ -29,7 +30,7 @@ class Matrix:
         Returns:
             The matrix width in pixels
         """
-        return self.width_in_blocks * self.block_size_in_pixels
+        return self.map.width_in_blocks * self.block_size_in_pixels
 
     @property
     def height_in_pixels(self):
@@ -38,7 +39,7 @@ class Matrix:
         Returns:
             The matrix height in pixels
         """
-        return self.height_in_blocks * self.block_size_in_pixels
+        return self.map.height_in_blocks * self.block_size_in_pixels
 
     @property
     def matrix_rect(self) -> pygame.Rect:

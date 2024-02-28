@@ -6,6 +6,7 @@ http://pygametutorials.wikidot.com/tutorials-basic
 
 import pygame
 
+from tetrominos.map import Map
 from tetrominos.matrix import Matrix
 from tetrominos.window import Window
 
@@ -25,11 +26,14 @@ class App:
         # window init
         self.window = Window(width_in_pixels=1280, height_in_pixels=720).surface
 
-        # matrix init
-        self.matrix = Matrix(
-            surface=self.window,
-            block_size_in_pixels=30,
+        # map init
+        self.map = Map(
+            height_in_blocks=2,  #! for dev
+            width_in_blocks=2,  #! for dev
         )
+
+        # matrix init
+        self.matrix = Matrix(surface=self.window, block_size_in_pixels=30, map=self.map)
 
     def run(self) -> None:
         """Run the Pygame game loop (event -> logic -> rendering) until game is interrupted"""
