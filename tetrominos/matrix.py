@@ -1,7 +1,7 @@
 """In this module, you will find the Matrix class.
 """
 
-from dataclasses import dataclass
+from itertools import product
 
 import pygame
 
@@ -11,17 +11,18 @@ from tetrominos.map import Map
 __all__ = ["Matrix"]
 
 
-@dataclass
 class Matrix:
-    """The Matrix class represent the game "matrix".
-    The game matrix is the graphical representation of
-    the grid where tetrominos exist, move and interact.
-    Each subdivision of the matrix is called a "block".
+    """The game matrix is the graphical representation of
+    the game board.
     """
 
-    surface: pygame.Surface
-    block_size_in_pixels: int
-    map: Map
+    def __init__(
+        self, surface: pygame.Surface, block_size_in_pixels: int, game_map: Map
+    ):
+        self.surface: pygame.Surface = surface
+        self.block_size_in_pixels: int = block_size_in_pixels
+        self.map: Map = game_map
+        self.default_color = (255, 255, 0)
 
     @property
     def width_in_pixels(self) -> int:
@@ -43,7 +44,8 @@ class Matrix:
 
     @property
     def origin(self):
-        """The matrix origin
+        """The origin is the coordinates of the left top
+        pixel of the game matrix
 
         Returns:
             The coordinates of the matrix origin (left, top)
@@ -52,22 +54,19 @@ class Matrix:
         top = (self.surface.get_height() - self.height_in_pixels) / 2
         return (left, top)
 
-    @property
-    def matrix_rect(self) -> pygame.Rect:
-        """Return the matrix frame as a Pygame Rect Object"""
-        return pygame.Rect(
-            self.origin,
-            (
-                self.width_in_pixels,
-                self.height_in_pixels,
-            ),
-        )
-
     def render_matrix(self):
         """This method renders the game matrix"""
-        for coordinates, block in self.map.current_map.items():
-            block_rect: pygame.Rect = self.block_rect(coordinates)
-            color: tuple[int] = block.color
+        all_coordinates = product(range(self.map.columns), range(self.map.lines))
+        blocks = self.map.all_blocks.keys()
+
+        for coordinate in all_coordinates:
+
+            block_rect: pygame.Rect = self.block_rect(coordinate)
+
+            if coordinate in blocks:
+                color = self.map.all_blocks[coordinate].color
+            else:
+                color: tuple[int] = self.default_color
 
             pygame.draw.rect(surface=self.surface, color=color, rect=block_rect)
 
