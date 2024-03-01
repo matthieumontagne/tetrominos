@@ -2,6 +2,9 @@
 """
 
 from tetrominos.block import Block
+from tetrominos.tetromino import BaseTetromino, TetrominoI
+
+__all__ = ["Map"]
 
 
 class Map:
@@ -19,7 +22,11 @@ class Map:
         self.columns: int = columns
         self.lines: int = lines
         self.locked_blocks: dict[tuple[int], Block] = {}
-        self.active_blocks: dict[tuple[int], Block] = {}
+        self.active_tetromino: BaseTetromino = TetrominoI()
+
+    @property
+    def active_blocks(self) -> dict[tuple[int], Block]:
+        return self.active_tetromino.get_blocks()
 
     def lock_block(self, coordinates: [tuple[int]], block: Block):
         """Add a new block to the locked_blocks dictionary"""
