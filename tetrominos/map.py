@@ -1,7 +1,7 @@
 """This modules contains the Map class
 """
 
-from tetrominos.block import Block
+from tetrominos.block import BlockCollection
 from tetrominos.tetromino import BaseTetromino, TetrominoI
 
 __all__ = ["Map"]
@@ -21,16 +21,16 @@ class Map:
     def __init__(self, columns: int = 10, lines: int = 20) -> None:
         self.columns: int = columns
         self.lines: int = lines
-        self.locked_blocks: dict[tuple[int], Block] = {}
+        self.locked_blocks = BlockCollection()
         self.active_tetromino: BaseTetromino = TetrominoI()
 
     @property
-    def active_blocks(self) -> dict[tuple[int], Block]:
+    def active_blocks(self) -> BlockCollection:
         """Return the collection of blocks composing the active tetromino"""
         return self.active_tetromino.get_blocks()
 
     @property
-    def all_blocks(self) -> dict[tuple[int], Block]:
+    def all_blocks(self) -> BlockCollection:
         """Return all the blocks locked or active.
         The resulting dict is intented to be feeded to the
         matrix graphical renderer

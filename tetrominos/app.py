@@ -14,7 +14,7 @@ from tetrominos.window import Window
 class App:
     """A class reprensenting the app"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize a running Pygame instance with a window of a
         certain size and a clock
         """
