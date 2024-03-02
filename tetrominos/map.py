@@ -26,6 +26,7 @@ class Map:
 
     @property
     def active_blocks(self) -> dict[tuple[int], Block]:
+        """Return the collection of blocks composing the active tetromino"""
         return self.active_tetromino.get_blocks()
 
     @property
