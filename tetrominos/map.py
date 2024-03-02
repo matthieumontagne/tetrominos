@@ -28,10 +28,6 @@ class Map:
     def active_blocks(self) -> dict[tuple[int], Block]:
         return self.active_tetromino.get_blocks()
 
-    def lock_block(self, coordinates: [tuple[int]], block: Block):
-        """Add a new block to the locked_blocks dictionary"""
-        self.locked_blocks[coordinates] = block
-
     @property
     def all_blocks(self) -> dict[tuple[int], Block]:
         """Return all the blocks locked or active.
