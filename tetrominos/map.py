@@ -40,7 +40,7 @@ class Map:
         """Return the list of all valid coordinates considering the size of the map"""
         return list(product(range(self.columns), range(self.lines)))
 
-    def freeze_tetromino(self):
+    def freeze_tetromino(self) -> None:
         """When a tetromino touch the ground line, it must be incorporated to
         the locked blocks and a new tetromino must appear
         """
@@ -48,7 +48,7 @@ class Map:
             self.locked_blocks = self.all_blocks
             self.active_tetromino: BaseTetromino = TetrominoO()
 
-    def tetromino_in_contact_with_ground(self):
+    def tetromino_in_contact_with_ground(self) -> bool:
         """check if the tetromino is in contact with the ground"""
         blocks: BlockCollection = self.active_tetromino.get_blocks()
         ground_level = self.lines - 1

@@ -61,6 +61,7 @@ class TetrominoI(BaseTetromino):
         ]
 
 
+@dataclass
 class TetrominoO(BaseTetromino):
     """The O tretromino"""
 

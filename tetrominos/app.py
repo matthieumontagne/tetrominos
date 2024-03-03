@@ -69,6 +69,7 @@ class App:
                 Rotation(self.map).execute()
 
     def process_game_logic(self):
+        """Process game logic"""
         self.map.freeze_tetromino()
 
     def render(self, frame_per_second_limit: int):
