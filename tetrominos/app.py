@@ -9,6 +9,7 @@ import pygame
 from tetrominos.map import Map
 from tetrominos.matrix import Matrix
 from tetrominos.window import Window
+from tetrominos.movement import Movement, Translation
 
 
 class App:
@@ -51,6 +52,11 @@ class App:
         """
         if event.type == pygame.QUIT:
             self.running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                Movement(self.map, Translation.LEFT).execute()
+            if event.key == pygame.K_RIGHT:
+                Movement(self.map, Translation.RIGHT).execute()
 
     def process_game_logic(self):
         """Computes changes happening to the game world"""

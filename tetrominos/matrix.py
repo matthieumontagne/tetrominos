@@ -1,8 +1,6 @@
 """In this module, you will find the Matrix class.
 """
 
-from itertools import product
-
 import pygame
 
 from tetrominos.block import BlockCollection
@@ -58,10 +56,9 @@ class Matrix:
     def render_matrix(self) -> None:
         """This method renders the game matrix"""
 
-        all_coordinates = product(range(self.map.columns), range(self.map.lines))
         blocks: BlockCollection = self.map.all_blocks
 
-        for coordinate in all_coordinates:
+        for coordinate in self.map.all_possible_coordinates():
 
             block_rect: pygame.Rect = self.block_rect(coordinate)
             color: tuple[int, int, int]

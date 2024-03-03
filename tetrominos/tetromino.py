@@ -2,9 +2,10 @@
 Tetrominos are shapes composed of four adjacent blocks
 They move and rotate"""
 
-from operator import add
+from dataclasses import dataclass
 
 from tetrominos.block import Block, BlockCollection
+from tetrominos.coordinates import coordinates_addition
 
 __all__ = ["BaseTetromino", "TetrominoI"]
 
@@ -35,23 +36,18 @@ class BaseTetromino:
         blocks = BlockCollection()
         rotation_template = self.rotation_template[self.rotation_cycle_index]
         for template_coordinate in rotation_template:
-            map_coordinate: tuple[int, int] = self.get_block_coordinates(
-                origin=self.rotation_space_origin,
-                template_coordinate=template_coordinate,
+            map_coordinate: tuple[int, int] = coordinates_addition(
+                self.rotation_space_origin,
+                template_coordinate,
             )
             blocks.add(map_coordinate, Block(self.color))
         return blocks
 
-    def get_block_coordinates(
-        self, origin: tuple[int, int], template_coordinate: tuple[int, int]
-    ):
-        """Get the coordinate of a block considering:
-        - the origin of its rotation space
-        - its position in the rotation template
-        """
-        return tuple(map(add, template_coordinate, origin))
+    def __str__(self):
+        return self.__class__.__name__
 
 
+@dataclass
 class TetrominoI(BaseTetromino):
     """The I tretromino"""
 

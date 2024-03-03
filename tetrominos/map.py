@@ -1,6 +1,8 @@
 """This modules contains the Map class
 """
 
+from itertools import product
+
 from tetrominos.block import BlockCollection
 from tetrominos.tetromino import BaseTetromino, TetrominoI
 
@@ -31,8 +33,9 @@ class Map:
 
     @property
     def all_blocks(self) -> BlockCollection:
-        """Return all the blocks locked or active.
-        The resulting dict is intented to be feeded to the
-        matrix graphical renderer
-        """
+        """Return the collection of all the blocks locked or active"""
         return self.active_blocks | self.locked_blocks
+
+    def all_possible_coordinates(self) -> list[tuple[int, int]]:
+        """Return the list of all valid coordinates considering the size of the map"""
+        return list(product(range(self.columns), range(self.lines)))
