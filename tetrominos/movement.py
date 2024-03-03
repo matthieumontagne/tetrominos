@@ -1,4 +1,4 @@
-"""This module contains the code related to movement and gravity"""
+"""This module contains the code related to movement"""
 
 from copy import deepcopy
 from enum import Enum

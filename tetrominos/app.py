@@ -8,8 +8,11 @@ import pygame
 
 from tetrominos.map import Map
 from tetrominos.matrix import Matrix
-from tetrominos.window import Window
 from tetrominos.movement import Movement, Translation
+from tetrominos.window import Window
+
+
+GRAVITYTIMEREVENT = pygame.USEREVENT + 1
 
 
 class App:
@@ -23,6 +26,9 @@ class App:
         pygame.init()
         self.clock = pygame.time.Clock()
         self.running: bool = True
+
+        # timer init
+        pygame.time.set_timer(GRAVITYTIMEREVENT, 700, 0)
 
         # window init
         self.window = Window(width_in_pixels=1280, height_in_pixels=720).surface
@@ -41,7 +47,7 @@ class App:
             for event in pygame.event.get():
                 self.handle_event(event)
             self.process_game_logic()
-            self.render(frame_per_second_limit=60)
+            self.render(frame_per_second_limit=2)
         pygame.quit()
 
     def handle_event(self, event: pygame.event.Event) -> None:
@@ -52,6 +58,8 @@ class App:
         """
         if event.type == pygame.QUIT:
             self.running = False
+        if event.type == GRAVITYTIMEREVENT:
+            Movement(self.map, Translation.DOWN).execute()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 Movement(self.map, Translation.LEFT).execute()
@@ -59,7 +67,7 @@ class App:
                 Movement(self.map, Translation.RIGHT).execute()
 
     def process_game_logic(self):
-        """Computes changes happening to the game world"""
+        """Process game logic"""
 
     def render(self, frame_per_second_limit: int):
         """Print out graphics"""
