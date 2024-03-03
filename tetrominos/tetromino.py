@@ -34,7 +34,6 @@ class BaseTetromino:
     def get_blocks(self) -> BlockCollection:
         """Return  all currents blocks of the tetromino and their coordinates"""
         blocks = BlockCollection()
-        print(self.rotation_cycle_index)
         rotation_template = self.rotation_template[self.rotation_cycle_index]
         for template_coordinate in rotation_template:
             map_coordinate: tuple[int, int] = coordinates_addition(
@@ -59,4 +58,16 @@ class TetrominoI(BaseTetromino):
         self.rotation_template: list[list[tuple[int, int]]] = [
             [(0, 2), (1, 2), (2, 2), (3, 2)],
             [(2, 0), (2, 1), (2, 2), (2, 3)],
+        ]
+
+
+class TetrominoO(BaseTetromino):
+    """The O tretromino"""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.color: tuple[int, int, int] = (255, 255, 0)  # yellow
+        self.rotation_space_origin: tuple[int, int] = (4, 0)
+        self.rotation_template: list[list[tuple[int, int]]] = [
+            [(0, 0), (0, 1), (1, 0), (1, 1)],
         ]
