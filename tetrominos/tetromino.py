@@ -34,6 +34,7 @@ class BaseTetromino:
     def get_blocks(self) -> BlockCollection:
         """Return  all currents blocks of the tetromino and their coordinates"""
         blocks = BlockCollection()
+        print(self.rotation_cycle_index)
         rotation_template = self.rotation_template[self.rotation_cycle_index]
         for template_coordinate in rotation_template:
             map_coordinate: tuple[int, int] = coordinates_addition(

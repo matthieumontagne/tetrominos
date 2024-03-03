@@ -8,7 +8,7 @@ import pygame
 
 from tetrominos.map import Map
 from tetrominos.matrix import Matrix
-from tetrominos.movement import Movement, Translation
+from tetrominos.movement import Rotation, Translation, TranslationDirection
 from tetrominos.window import Window
 
 
@@ -59,12 +59,14 @@ class App:
         if event.type == pygame.QUIT:
             self.running = False
         if event.type == GRAVITYTIMEREVENT:
-            Movement(self.map, Translation.DOWN).execute()
+            Translation(self.map, TranslationDirection.DOWN).execute()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                Movement(self.map, Translation.LEFT).execute()
+                Translation(self.map, TranslationDirection.LEFT).execute()
             if event.key == pygame.K_RIGHT:
-                Movement(self.map, Translation.RIGHT).execute()
+                Translation(self.map, TranslationDirection.RIGHT).execute()
+            if event.key == pygame.K_UP:
+                Rotation(self.map).execute()
 
     def process_game_logic(self):
         """Process game logic"""
