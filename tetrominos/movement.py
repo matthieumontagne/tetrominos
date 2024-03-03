@@ -1,5 +1,6 @@
 """This module contains the code related to movement"""
 
+from abc import ABC, abstractmethod
 from copy import deepcopy
 from enum import Enum
 
@@ -17,7 +18,7 @@ class TranslationDirection(Enum):
     DOWN = (0, 1)
 
 
-class BaseMovement:
+class BaseMovement(ABC):
     """The common base of movement and rotation"""
 
     def __init__(self, game_map: Map) -> None:
@@ -39,6 +40,7 @@ class BaseMovement:
                 return False
         return True
 
+    @abstractmethod
     def simulate_tetromino(self):
         """template for child classes"""
 
