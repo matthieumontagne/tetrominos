@@ -47,7 +47,7 @@ class App:
             for event in pygame.event.get():
                 self.handle_event(event)
             self.process_game_logic()
-            self.render(frame_per_second_limit=2)
+            self.render(frame_per_second_limit=60)
         pygame.quit()
 
     def handle_event(self, event: pygame.event.Event) -> None:
@@ -69,7 +69,7 @@ class App:
                 Rotation(self.map).execute()
 
     def process_game_logic(self):
-        """Process game logic"""
+        self.map.freeze_tetromino()
 
     def render(self, frame_per_second_limit: int):
         """Print out graphics"""

@@ -4,7 +4,7 @@
 from itertools import product
 
 from tetrominos.block import BlockCollection
-from tetrominos.tetromino import BaseTetromino, TetrominoI
+from tetrominos.tetromino import BaseTetromino, TetrominoI, TetrominoO
 
 __all__ = ["Map"]
 
@@ -39,3 +39,21 @@ class Map:
     def all_possible_coordinates(self) -> list[tuple[int, int]]:
         """Return the list of all valid coordinates considering the size of the map"""
         return list(product(range(self.columns), range(self.lines)))
+
+    def freeze_tetromino(self):
+        """When a tetromino touch the ground line, it must be incorporated to
+        the locked blocks and a new tetromino must appear
+        """
+        if self.tetromino_in_contact_with_ground():
+            self.locked_blocks = self.all_blocks
+            self.active_tetromino: BaseTetromino = TetrominoO()
+
+    def tetromino_in_contact_with_ground(self):
+        """check if the tetromino is in contact with the ground"""
+        blocks: BlockCollection = self.active_tetromino.get_blocks()
+        ground_level = self.lines - 1
+        for coordinate in blocks.collection:
+            line = coordinate[1]
+            if line == ground_level:
+                return True
+        return False

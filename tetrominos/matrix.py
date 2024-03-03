@@ -21,7 +21,7 @@ class Matrix:
         self.surface: pygame.Surface = surface
         self.block_size_in_pixels: int = block_size_in_pixels
         self.map: Map = game_map
-        self.default_color = (255, 255, 0)
+        self.default_color = (255, 255, 255)
 
     @property
     def width_in_pixels(self) -> int:
