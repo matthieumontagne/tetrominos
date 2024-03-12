@@ -55,6 +55,11 @@ class BaseTetromino:
             [
                 TetrominoI,
                 TetrominoO,
+                TetrominoL,
+                TetrominoJ,
+                TetrominoS,
+                TetrominoZ,
+                TetrominoT,
             ]
         )
         return random_tetromino_class()
@@ -69,7 +74,7 @@ class TetrominoI(BaseTetromino):
         self.color: tuple[int, int, int] = (0, 255, 255)  # cyan
         self.rotation_space_origin: tuple[int, int] = (3, -2)
         self.rotation_template: list[list[tuple[int, int]]] = [
-            [(0, 2), (1, 2), (2, 2), (3, 2)],
+            [(0, 1), (1, 1), (2, 1), (3, 1)],
             [(2, 0), (2, 1), (2, 2), (2, 3)],
         ]
 
@@ -84,4 +89,80 @@ class TetrominoO(BaseTetromino):
         self.rotation_space_origin: tuple[int, int] = (4, 0)
         self.rotation_template: list[list[tuple[int, int]]] = [
             [(0, 0), (0, 1), (1, 0), (1, 1)],
+        ]
+
+
+@dataclass
+class TetrominoJ(BaseTetromino):
+    """The J tretromino"""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.color: tuple[int, int, int] = (0, 0, 139)  # dark blue
+        self.rotation_space_origin: tuple[int, int] = (4, 0)
+        self.rotation_template: list[list[tuple[int, int]]] = [
+            [(0, 1), (1, 1), (2, 1), (2, 2)],
+            [(1, 0), (1, 1), (1, 2), (0, 2)],
+            [(0, 1), (0, 2), (1, 2), (2, 2)],
+            [(1, 0), (2, 0), (2, 1), (2, 2)],
+        ]
+
+
+@dataclass
+class TetrominoL(BaseTetromino):
+    """The L tretromino"""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.color: tuple[int, int, int] = (255, 136, 0)  # orange
+        self.rotation_space_origin: tuple[int, int] = (4, 0)
+        self.rotation_template: list[list[tuple[int, int]]] = [
+            [(0, 2), (0, 1), (1, 1), (2, 1)],
+            [(0, 0), (1, 0), (1, 1), (1, 2)],
+            [(2, 1), (2, 2), (1, 2), (0, 2)],
+            [(1, 0), (1, 1), (1, 2), (2, 2)],
+        ]
+
+
+@dataclass
+class TetrominoS(BaseTetromino):
+    """The S tretromino"""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.color: tuple[int, int, int] = (0, 128, 0)  # green
+        self.rotation_space_origin: tuple[int, int] = (4, 0)
+        self.rotation_template: list[list[tuple[int, int]]] = [
+            [(0, 2), (1, 2), (1, 1), (2, 1)],
+            [(0, 0), (0, 1), (1, 1), (1, 2)],
+        ]
+
+
+@dataclass
+class TetrominoZ(BaseTetromino):
+    """The Z tretromino"""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.color: tuple[int, int, int] = (178, 34, 34)  # fire brick
+        self.rotation_space_origin: tuple[int, int] = (4, 0)
+        self.rotation_template: list[list[tuple[int, int]]] = [
+            [(0, 1), (1, 1), (1, 2), (2, 2)],
+            [(1, 2), (1, 1), (2, 1), (2, 0)],
+        ]
+
+
+@dataclass
+class TetrominoT(BaseTetromino):
+    """The T tretromino"""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.color: tuple[int, int, int] = (186, 85, 211)  # medium orchid
+        self.rotation_space_origin: tuple[int, int] = (4, 0)
+        self.rotation_template: list[list[tuple[int, int]]] = [
+            [(0, 1), (1, 1), (2, 1), (1, 2)],
+            [(1, 0), (1, 1), (1, 2), (0, 1)],
+            [(0, 2), (1, 2), (2, 2), (1, 1)],
+            [(1, 0), (1, 1), (1, 2), (2, 1)],
         ]
