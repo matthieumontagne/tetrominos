@@ -23,18 +23,22 @@ class BaseMovement(ABC):
 
     def __init__(self, game_map: Map) -> None:
         self.game_map: Map = game_map
+        self.simulated_tetromino: BaseTetromino = self.simulate_tetromino()
 
     def execute(self) -> None:
         """Execute a movement"""
-        simulated_tetromino: BaseTetromino = self.simulate_tetromino()
-        if self.is_inbound(simulated_tetromino) and not self.is_blocked(
-            simulated_tetromino
-        ):
-            self.game_map.active_tetromino = simulated_tetromino
+        if self.validate():
+            self.game_map.active_tetromino = self.simulated_tetromino
 
-    def is_inbound(self, tetromino: BaseTetromino):
+    def validate(self):
+        """checks if a tetromino is still free to move without barriers"""
+        if self.is_inbound() and not self.is_blocked():
+            return True
+        return False
+
+    def is_inbound(self) -> bool:
         """Check if all the blocks of a tetromino are inside the game board"""
-        blocks: BlockCollection = tetromino.get_blocks()
+        blocks: BlockCollection = self.simulated_tetromino.get_blocks()
         possible_coordinates = self.game_map.all_possible_coordinates()
 
         for coordinates in blocks.collection:
@@ -42,9 +46,9 @@ class BaseMovement(ABC):
                 return False
         return True
 
-    def is_blocked(self, tetromino: BaseTetromino):
+    def is_blocked(self) -> bool:
         """Checks if a tetromino is overlapping the already locked tetrominos"""
-        tetromino_blocks: BlockCollection = tetromino.get_blocks()
+        tetromino_blocks: BlockCollection = self.simulated_tetromino.get_blocks()
         locked_blocks: BlockCollection = self.game_map.locked_blocks
 
         for coordinates in tetromino_blocks.collection:

@@ -68,9 +68,14 @@ class App:
             if event.key == pygame.K_UP:
                 Rotation(self.map).execute()
 
-    def process_game_logic(self):
+    def process_game_logic(self) -> None:
         """Process game logic"""
-        self.map.freeze_tetromino()
+        tetromino_is_blocked: bool = not Translation(
+            self.map, TranslationDirection.DOWN
+        ).validate()
+        tetromino_touch_the_ground = self.map.tetromino_in_contact_with_ground()
+        if tetromino_is_blocked or tetromino_touch_the_ground:
+            self.map.freeze_tetromino()
 
     def render(self, frame_per_second_limit: int):
         """Print out graphics"""

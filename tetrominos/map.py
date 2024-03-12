@@ -41,14 +41,11 @@ class Map:
         return list(product(range(self.columns), range(self.lines)))
 
     def freeze_tetromino(self) -> None:
-        """When a tetromino touch the ground line, it must be incorporated to
-        the locked blocks and a new tetromino must appear
+        """Incorporate a tetromino to
+        the locked blocks and make a new tetromino must appear
         """
-        if self.tetromino_in_contact_with_ground():
-            self.locked_blocks = self.all_blocks
-            self.active_tetromino: BaseTetromino = (
-                BaseTetromino.create_random_tetromino()
-            )
+        self.locked_blocks = self.all_blocks
+        self.active_tetromino = BaseTetromino.create_random_tetromino()
 
     def tetromino_in_contact_with_ground(self) -> bool:
         """check if the tetromino is in contact with the ground"""
