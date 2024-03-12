@@ -4,7 +4,7 @@
 from itertools import product
 
 from tetrominos.block import BlockCollection
-from tetrominos.tetromino import BaseTetromino, TetrominoI, TetrominoO
+from tetrominos.tetromino import BaseTetromino
 
 __all__ = ["Map"]
 
@@ -24,7 +24,7 @@ class Map:
         self.columns: int = columns
         self.lines: int = lines
         self.locked_blocks = BlockCollection()
-        self.active_tetromino: BaseTetromino = TetrominoI()
+        self.active_tetromino: BaseTetromino = BaseTetromino.create_random_tetromino()
 
     @property
     def active_blocks(self) -> BlockCollection:
@@ -46,7 +46,9 @@ class Map:
         """
         if self.tetromino_in_contact_with_ground():
             self.locked_blocks = self.all_blocks
-            self.active_tetromino: BaseTetromino = TetrominoO()
+            self.active_tetromino: BaseTetromino = (
+                BaseTetromino.create_random_tetromino()
+            )
 
     def tetromino_in_contact_with_ground(self) -> bool:
         """check if the tetromino is in contact with the ground"""

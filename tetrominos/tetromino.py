@@ -2,7 +2,9 @@
 Tetrominos are shapes composed of four adjacent blocks
 They move and rotate"""
 
+from __future__ import annotations
 from dataclasses import dataclass
+from random import choice
 
 from tetrominos.block import Block, BlockCollection
 from tetrominos.coordinates import coordinates_addition
@@ -45,6 +47,17 @@ class BaseTetromino:
 
     def __str__(self):
         return self.__class__.__name__
+
+    @classmethod
+    def create_random_tetromino(cls) -> BaseTetromino:
+        """Return a random tetromino"""
+        random_tetromino_class = choice(
+            [
+                TetrominoI,
+                TetrominoO,
+            ]
+        )
+        return random_tetromino_class()
 
 
 @dataclass
