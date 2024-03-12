@@ -27,7 +27,9 @@ class BaseMovement(ABC):
     def execute(self) -> None:
         """Execute a movement"""
         simulated_tetromino: BaseTetromino = self.simulate_tetromino()
-        if self.is_inbound(simulated_tetromino):
+        if self.is_inbound(simulated_tetromino) and not self.is_blocked(
+            simulated_tetromino
+        ):
             self.game_map.active_tetromino = simulated_tetromino
 
     def is_inbound(self, tetromino: BaseTetromino):
@@ -39,6 +41,16 @@ class BaseMovement(ABC):
             if coordinates not in possible_coordinates:
                 return False
         return True
+
+    def is_blocked(self, tetromino: BaseTetromino):
+        """Checks if a tetromino is overlapping the already locked tetrominos"""
+        tetromino_blocks: BlockCollection = tetromino.get_blocks()
+        locked_blocks: BlockCollection = self.game_map.locked_blocks
+
+        for coordinates in tetromino_blocks.collection:
+            if coordinates in locked_blocks.collection:
+                return True
+        return False
 
     @abstractmethod
     def simulate_tetromino(self):
