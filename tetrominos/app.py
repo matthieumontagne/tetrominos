@@ -26,7 +26,7 @@ class App:
         pygame.init()
         self.clock = pygame.time.Clock()
         self.running: bool = True
-
+        pygame.key.set_repeat(500, 500)
         # timer init
         pygame.time.set_timer(GRAVITYTIMEREVENT, 700, 0)
 
@@ -67,6 +67,9 @@ class App:
                 Translation(self.map, TranslationDirection.RIGHT).execute()
             if event.key == pygame.K_UP:
                 Rotation(self.map).execute()
+            if event.key == pygame.K_DOWN:
+                while Translation(self.map, TranslationDirection.DOWN).validate():
+                    Translation(self.map, TranslationDirection.DOWN).execute()
 
     def process_game_logic(self) -> None:
         """Process game logic"""
