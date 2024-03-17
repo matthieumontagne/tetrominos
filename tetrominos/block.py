@@ -7,8 +7,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from tetrominos import coordinates
-
 __all__ = ["Block", "BlockCollection"]
 
 
@@ -36,7 +34,7 @@ class BlockCollection:
         """Add a new block to the collection"""
         self.collection[coordinate] = block
 
-    def delete_row(self, row_number: int) -> int:
+    def delete_row(self, row_number: int) -> None:
         """Remove a row from the colleciton"""
         new_collection = {}
         for coordinate, block in self.collection.items():
