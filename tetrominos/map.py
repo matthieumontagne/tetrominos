@@ -47,13 +47,3 @@ class Map:
         """
         self.locked_blocks = self.all_blocks
         self.active_tetromino = BaseTetromino.create_random_tetromino()
-
-    def tetromino_in_contact_with_ground(self) -> bool:
-        """check if the tetromino is in contact with the ground"""
-        blocks: BlockCollection = self.active_tetromino.get_blocks()
-        ground_level = self.lines - 1
-        for coordinate in blocks.collection:
-            line = coordinate[1]
-            if line == ground_level:
-                return True
-        return False

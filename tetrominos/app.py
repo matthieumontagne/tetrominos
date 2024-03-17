@@ -87,6 +87,8 @@ class App:
             pygame.time.set_timer(LOCKTETROMINOEVENT, 300, loops=1)
             self.map.locking_grace_period = True
 
+        # handle row deletion
+
     def render(self, frame_per_second_limit: int):
         """Print out graphics"""
         self.window.fill("grey")
