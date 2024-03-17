@@ -65,6 +65,8 @@ class App:
         if event.type == LOCKTETROMINOEVENT:
             self.map.freeze_tetromino()
             self.map.locking_grace_period = False
+            # handle row completion
+            self.map.pop_complete_rows()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 Translation(self.map, TranslationDirection.LEFT).execute()
@@ -87,7 +89,7 @@ class App:
             pygame.time.set_timer(LOCKTETROMINOEVENT, 300, loops=1)
             self.map.locking_grace_period = True
 
-        # handle row deletion
+            # handle row completion
 
     def render(self, frame_per_second_limit: int):
         """Print out graphics"""

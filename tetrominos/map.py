@@ -47,3 +47,27 @@ class Map:
         """
         self.locked_blocks = self.all_blocks
         self.active_tetromino = BaseTetromino.create_random_tetromino()
+
+    def is_row_complete(self, row: int) -> bool:
+        """return True if a row is complete"""
+        row_size = self.columns
+        row_counter = 0
+        for coordinate in self.locked_blocks.collection.keys():
+            if coordinate[1] == row:
+                row_counter += 1
+        return row_size == row_counter
+
+    def list_complete_rows(self) -> list[int]:
+        """List all complete rows and return a list containing their number"""
+        row_list = []
+        for row_number in range(0, self.lines):
+            if self.is_row_complete(row_number):
+                row_list.append(row_number)
+        return row_list
+
+    def pop_complete_rows(self) -> None:
+        """ "Delete complete rows"""
+        rows_to_pop = self.list_complete_rows()
+
+        for row_number in rows_to_pop:
+            self.locked_blocks.delete_row(row_number)

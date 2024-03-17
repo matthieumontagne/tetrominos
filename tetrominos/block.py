@@ -7,6 +7,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from tetrominos import coordinates
+
 __all__ = ["Block", "BlockCollection"]
 
 
@@ -34,9 +36,17 @@ class BlockCollection:
         """Add a new block to the collection"""
         self.collection[coordinate] = block
 
-    def pop(self, coordinate: tuple[int, int]) -> None:
-        """Remove a block from the collection"""
-        self.collection.pop(coordinate)
+    def delete_row(self, row_number: int) -> int:
+        """Remove a row from the colleciton"""
+        new_collection = {}
+        for coordinate, block in self.collection.items():
+            x, y = coordinate[0], coordinate[1]
+            if y < row_number:
+                new_coordinates = (x, y + 1)
+                new_collection[new_coordinates] = block
+            elif y > row_number:
+                new_collection[(x, y)] = block
+        self.collection = new_collection
 
     def __or__(self, other_collection) -> BlockCollection:
         """Define the or operator (|) as a merge operator for this class"""
