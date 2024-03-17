@@ -9,7 +9,16 @@ from random import choice
 from tetrominos.block import Block, BlockCollection
 from tetrominos.coordinates import coordinates_addition
 
-__all__ = ["BaseTetromino", "TetrominoI"]
+__all__ = [
+    "BaseTetromino",
+    "TetrominoI",
+    "TetrominoO",
+    "TetrominoL",
+    "TetrominoJ",
+    "TetrominoS",
+    "TetrominoZ",
+    "TetrominoT",
+]
 
 
 class BaseTetromino:

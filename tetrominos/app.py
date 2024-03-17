@@ -43,9 +43,6 @@ class App:
             surface=self.window, block_size_in_pixels=30, game_map=self.map
         )
 
-        # tetromino lock init
-        self.locking_grace_period: bool = False
-
     def run(self) -> None:
         """Run the Pygame game loop (event -> logic -> rendering) until game is interrupted"""
         while self.running:
@@ -67,7 +64,7 @@ class App:
             Translation(self.map, TranslationDirection.DOWN).execute()
         if event.type == LOCKTETROMINOEVENT:
             self.map.freeze_tetromino()
-            self.locking_grace_period = False
+            self.map.locking_grace_period = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 Translation(self.map, TranslationDirection.LEFT).execute()
@@ -83,17 +80,12 @@ class App:
         """Process game logic"""
 
         # handle tetromino freezing
-
-        tetromino_is_blocked: bool = not Translation(
-            self.map, TranslationDirection.DOWN
-        ).validate()
-        tetromino_touch_the_ground = self.map.tetromino_in_contact_with_ground()
-
-        if not self.locking_grace_period and (
-            tetromino_is_blocked or tetromino_touch_the_ground
+        if (
+            not self.map.locking_grace_period
+            and not Translation(self.map, TranslationDirection.DOWN).validate()
         ):
             pygame.time.set_timer(LOCKTETROMINOEVENT, 300, loops=1)
-            self.locking_grace_period = True
+            self.map.locking_grace_period = True
 
     def render(self, frame_per_second_limit: int):
         """Print out graphics"""

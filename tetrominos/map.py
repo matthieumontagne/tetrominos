@@ -25,6 +25,7 @@ class Map:
         self.lines: int = lines
         self.locked_blocks = BlockCollection()
         self.active_tetromino: BaseTetromino = BaseTetromino.create_random_tetromino()
+        self.locking_grace_period: bool = False
 
     @property
     def active_blocks(self) -> BlockCollection:

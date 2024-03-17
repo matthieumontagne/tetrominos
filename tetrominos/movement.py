@@ -9,6 +9,8 @@ from tetrominos.coordinates import coordinates_addition
 from tetrominos.map import Map
 from tetrominos.tetromino import BaseTetromino
 
+__all__ = ["TranslationDirection", "BaseMovement", "Translation", "Rotation"]
+
 
 class TranslationDirection(Enum):
     """Enumeration of all possible translations coordinates"""
@@ -32,7 +34,7 @@ class BaseMovement(ABC):
 
     def validate(self):
         """checks if a tetromino is still free to move without barriers"""
-        if self.is_inbound() and not self.is_blocked():
+        if self.is_inbound() and not self.is_overlapping():
             return True
         return False
 
@@ -46,7 +48,7 @@ class BaseMovement(ABC):
                 return False
         return True
 
-    def is_blocked(self) -> bool:
+    def is_overlapping(self) -> bool:
         """Checks if a tetromino is overlapping the already locked tetrominos"""
         tetromino_blocks: BlockCollection = self.simulated_tetromino.get_blocks()
         locked_blocks: BlockCollection = self.game_map.locked_blocks
