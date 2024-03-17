@@ -13,6 +13,7 @@ from tetrominos.window import Window
 
 
 GRAVITYTIMEREVENT = pygame.USEREVENT + 1
+LOCKTETROMINOEVENT = pygame.USEREVENT + 2
 
 
 class App:
@@ -27,6 +28,7 @@ class App:
         self.clock = pygame.time.Clock()
         self.running: bool = True
         pygame.key.set_repeat(500, 500)
+
         # timer init
         pygame.time.set_timer(GRAVITYTIMEREVENT, 700, 0)
 
@@ -40,6 +42,9 @@ class App:
         self.matrix = Matrix(
             surface=self.window, block_size_in_pixels=30, game_map=self.map
         )
+
+        # tetromino lock init
+        self.locking_grace_period: bool = False
 
     def run(self) -> None:
         """Run the Pygame game loop (event -> logic -> rendering) until game is interrupted"""
@@ -60,6 +65,9 @@ class App:
             self.running = False
         if event.type == GRAVITYTIMEREVENT:
             Translation(self.map, TranslationDirection.DOWN).execute()
+        if event.type == LOCKTETROMINOEVENT:
+            self.map.freeze_tetromino()
+            self.locking_grace_period = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 Translation(self.map, TranslationDirection.LEFT).execute()
@@ -73,12 +81,19 @@ class App:
 
     def process_game_logic(self) -> None:
         """Process game logic"""
+
+        # handle tetromino freezing
+
         tetromino_is_blocked: bool = not Translation(
             self.map, TranslationDirection.DOWN
         ).validate()
         tetromino_touch_the_ground = self.map.tetromino_in_contact_with_ground()
-        if tetromino_is_blocked or tetromino_touch_the_ground:
-            self.map.freeze_tetromino()
+
+        if not self.locking_grace_period and (
+            tetromino_is_blocked or tetromino_touch_the_ground
+        ):
+            pygame.time.set_timer(LOCKTETROMINOEVENT, 300, loops=1)
+            self.locking_grace_period = True
 
     def render(self, frame_per_second_limit: int):
         """Print out graphics"""
